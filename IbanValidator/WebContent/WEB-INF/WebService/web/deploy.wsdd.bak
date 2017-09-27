@@ -1,0 +1,29 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from WebService WSDL service -->
+
+  <service name="Web" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://web"/>
+      <parameter name="wsdlServiceElement" value="WebService"/>
+      <parameter name="schemaQualified" value="http://web"/>
+      <parameter name="wsdlServicePort" value="Web"/>
+      <parameter name="className" value="web.WebSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="Web"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="validator" qname="operNS:validator" xmlns:operNS="http://web" returnQName="retNS:validatorReturn" xmlns:retNS="http://web" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:iban" xmlns:pns="http://web" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="validator"/>
+
+  </service>
+</deployment>
